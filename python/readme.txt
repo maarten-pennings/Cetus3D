@@ -20,7 +20,7 @@ Python scripts for Cetus3D
         ... received
         prip    : 192.168.178.10
         prport  : 31246
-        prsnum  : 1607545635
+        prsnum  : 1607545762
         prname  : MaartensCetus3D
         prtype  : Cetus S7(NL)
       Done
