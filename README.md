@@ -3,12 +3,30 @@ Library for getting the status of the Cetus3D printer.
 
 
 ## Introduction
-todo  
+Using the standard Cetus3D PC software (now [UP Studio](https://www.tiertime.com/up-studio/) from Tier Time) 
+and [WireShark](https://www.wireshark.org/) and a lot of experiments, I was able to reverse engineer the
+communication between UP Studio and my [Cetus3D](https://www.cetus3d.com/).
+
+When I shared a short [video](https://photos.app.goo.gl/89zFwejhkBJ2FMWw6) with Cetus3D support,
+I got an OK to publish this, and even a bit of support. 
+Find my logs and a support mail from Cetus3D in the [docs](docs) directory.
+
+Next step was to replay the logged communication. I focused on "getting status" 
+(on my todo list is the reverse engineering of the "extrude" and "withdraw" commands, and maybe "initialize").
+For this I wrote a [Python](python) script.
+
+Third step, was to create a Arduino library. Find it in the [src](src) directory.
+A simple example is [Cetus3Dbasic](examples/Cetus3Dbasic) in the [examples](examples) directory.
+
+As you can see on the video, I made a complete "product" out of it, with two OLED displays 
+and two temperature sensors. At this moment, that project is not ready to be shared.
+It is too specific with all the hardware requirements.
 
 
 ## Example output
-```
+This is the output of the [Cetus3Dbasic](examples/Cetus3Dbasic) example.
 
+```
 Welcome to Cetus3Dbasic
 setup: WiFi 'MaartensWiFi' ... ESP8266 at 192.168.178.63
 setup: Finding Cetus3D ... found 'MaartensCetus3D' at 192.168.178.10
@@ -28,7 +46,7 @@ stat: 00008 00061s : 0003/non-initialized L0000   0.0mm   0%  0:00:00  23.64C  1
 
 ## Complete log
 I have printed an axis of about 35mm, using the 0.2 nozzle, and a layer height of 0.05mm.
-I have captured the complete [output](capture.log) of [Cetus3Dbasic](examples\Cetus3Dbasic).
+I have captured the complete [output](docs/capture.log) of [Cetus3Dbasic](examples/Cetus3Dbasic).
 Note
  - First few lines (1..4) is the output of setup: connecting to WiFi and finding the Cetus3D
  - Next we see a couple of `Get status failed` lines (5..10). 

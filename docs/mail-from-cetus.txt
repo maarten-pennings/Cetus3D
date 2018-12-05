@@ -1,0 +1,117 @@
+Date: Thu, 10 May 2018 01:24:19 +0000
+From: "Jason Wu (Cetus3D Support)" <...>
+Reply-To: Cetus3D Support <...>
+To: maartenpennings <...>
+Subject: [Tiertime] Re: RE: [Cetus3D] Re: Others
+
+Hi Martin,
+
+Sorry for the late reply.
+Here is some explanation and answers from our R&D team.
+
+
+
+> Hi Jason,
+>
+>
+> I do _not_ want to make a complete application.
+> I want to make an application that shows _progress_.
+>
+>
+>
+>
+> I see two variants:
+> (V1) I already made an application for an ESP8266 with an OLED that I integrated into a casing for my Cetus 3D.
+> (V2) I planned to develop an Android app with the same functionality.
+>
+>
+>
+>
+>
+>
+> For both variants this is my wish list
+> (R1) Can discover a Cetus3D
+> (R1a) At this moment a broadcast a UDP message (I call this WhoIsPresent, 27 bytes). I identified two fields: host ip and host port. Rest is unclear to me.
+> (R1b) I get a UDP message back from the printer (I call this ImPresent, 137 bytes). I identified serialnum, printername and printer type. Rest is unclear to me.
+> Help here would be appreciated:
+> - Is this the right procedure?
+
+YES
+
+> - Can you explain for some fields (the ones you want to diclose) what they mean?
+
+typedef struct _echoInfo
+{
+    unsigned int serNum1;
+    unsigned int serNum2;
+    int systemType;
+    unsigned char accessCtrl;
+    unsigned char workState;
+    unsigned char haveHost;
+    sockAddr_t udpAddr; //ip address
+    char hostName[NAMELENGTH];
+    char printerName[NAMELENGTH];
+    char printerType[NAMELENGTH];
+} echoInfo;
+
+> - For the message that I need to send (WhoIsPresent), can you giveme good values to send for fields that you don't want to disclose.
+> (R2) Get status messages from a Cetus3D
+> (R2a) I send a UDP message to the printer (I call this CallMeHere, 85 bytes). I identified host port and host ip. Also hostname which I do not understand. Rest is unclear to me.
+> (R2b) Printer then opens TCP connection to the host
+> (R2c) I then send a "GiveStatus" message to the printer. I have no idea what the 73 bytes in this message mean.
+> (R2d) I then receive a CurrentStatus message (64 bytes). I identified printer status, layer, height, progress in percentages, remaining timein seconds, nozzle and bed temperature. Rest is unclear to me.
+> (R2e) After one StatusMessage, I close the connection and wait 10seconds, and then redo these 5 steps. This allows me to use the official Cetus app on PC to e.g. send a STOP or PAUSE command.
+> Help here would be appreciated:
+> - Is this the right procedure?
+
+YES
+
+> - Can you explain for some fields (the ones you want to diclose) what they mean? Especially the status CurrentStatus message!
+
+struct PrinterStatus
+{
+    char systemStatus; //System Status
+    char printerStatus; //Printer Status
+
+    short curLayer;
+    short curHeight; //the height divide by 10, 847 represent 84.7mm
+
+    unsigned int remainTime; //the lowest byte is percent of job,
+    //the higher 3 bytes for remain time, unit second,
+    //0x001B463 represent 99(63)% finished, remain 436(0X1B3) seconds
+
+    //temperature of 1/2/3/4
+    short temperature[4]; //divide by 50, 1050 =3D 21 degree
+    char heaterOn; //bit 0 for heat1, bit1 for heat2, 0x05 represent heat1 and heat3 is opened
+
+    unsigned char XXX[4];
+    float XXXX[4];
+
+    unsigned int outPort; //OUT/IN port status, every bit represent one port.
+    unsigned int inPort;
+    unsigned int outPort_Slave;
+    unsigned int inPort_Slave;
+
+    int reserved1;
+    int reserved2;
+}
+
+> - For the message that I need to send (CallMeHere and especially GiveStatus), can you give me good values to send for fields that you don'twant to disclose.
+
+
+
+> I have attached my research python scripts to show you what I found out.
+> Jason also has a video of my ESP8266/OLED, if you want I can make a longer one.
+>
+>
+>
+>
+> Some questions from me:
+> (Q1) Is it ok to publish the ESP8266 sources on GitHub?
+
+OK
+
+> (Q2) Would it be ok, once I completed the Android App, to publish it in the PlayStore?
+
+OK
+
