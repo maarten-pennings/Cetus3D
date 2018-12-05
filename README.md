@@ -68,4 +68,6 @@ Note
  - Also note that there is an incidental `Get status failed` (lines 280, 288, 654, 795, 1105 and 1109).
    I can not explain these.
  
+![Cabinet](docs\Cetus3D-1s.png) ![Console](docs\Cetus3D-2s.png) ![Display](docs\Cetus3D-3s.png)
+
 (end of doc)
