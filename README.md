@@ -18,9 +18,11 @@ For this I wrote a [Python](python) script.
 Third step, was to create a Arduino library. Find it in the [src](src) directory.
 A simple example is [Cetus3Dbasic](examples/Cetus3Dbasic) in the [examples](examples) directory.
 
-As you can see on the video, I made a complete "product" out of it, with two OLED displays 
+As you can see on the video (and the [pictures](docs) below), I made a complete "product" out of it, with two OLED displays 
 and two temperature sensors. At this moment, that project is not ready to be shared.
 It is too specific with all the hardware requirements.
+
+![Cabinet](docs/Cetus3D-1s.png) ![Console](docs/Cetus3D-2s.png) ![Display](docs/Cetus3D-3s.png)
 
 
 ## Example output
@@ -67,7 +69,5 @@ Note
  - One interesting column remain: the estimated run time (from 1:39:17 down to 0:00:00)
  - Also note that there is an incidental `Get status failed` (lines 280, 288, 654, 795, 1105 and 1109).
    I can not explain these.
- 
-![Cabinet](docs\Cetus3D-1s.png) ![Console](docs\Cetus3D-2s.png) ![Display](docs\Cetus3D-3s.png)
 
 (end of doc)
