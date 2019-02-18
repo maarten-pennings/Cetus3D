@@ -64,10 +64,10 @@ void setup() {
 
   // Enable WiFi
   Serial.print("setup: WiFi '");
-  Serial.print(SSID);
+  Serial.print(wifiSsid);
   Serial.print("' ..");
   WiFi.mode(WIFI_STA);
-  WiFi.begin(SSID, PASSWORD);
+  WiFi.begin(wifiSsid, wifiPassword);
   while( WiFi.status()!=WL_CONNECTED ) {
     delay(250);
     Serial.printf(".");
@@ -98,7 +98,7 @@ void loop() {
   } else { 
     Serial.printf("loop: Get status failed\n");
   }
-  // Wait as long as this sketch is contacting the Cetus3D no other host
-  // (e.g. PC or iPAD with UP software) can contact the Cetus3D. So take long intervals
-  delay(5000);
+  // Wait a bit; as long as this sketch is contacting the Cetus3D no other host
+  // (e.g. PC or iPAD with UP software) can contact the Cetus3D. So take long intervals.
+  delay(10000);
 }
