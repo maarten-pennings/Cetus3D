@@ -70,11 +70,11 @@ Next, same, but now without raft
 ## Forecast
 
 We see that Quality does not influence Mass. 
-For example 13% Infill (and with Raft) uses 34.3, 34.2 and 34.2 for fast, normal respectively fine.
-For example 13% Infill (and No Raft) uses 29.4, 29.5 and 29.5 for fast, normal respectively fine.
+For example 13% Infill (and with Raft) uses 34.3, 34.2 and 34.2 for Fast, Normal respectively Fine.
+For example 13% Infill (and No Raft) uses 29.4, 29.5 and 29.5 for Fast, Normal respectively Fine.
 
 I expected this: the print head moves faster, but deposits the same amount of material 
-(the PLA flow through the nozzles increases with the same factot as the nozzle movement).
+(the PLA flow through the nozzles grows with the same factor as the nozzle movement).
 
 Of course, adding a raft does add mass.
 If we pairwise compare the masses With and Without Raft, we get this table.
@@ -101,7 +101,7 @@ If we pairwise compare the masses With and Without Raft, we get this table.
 
 The conclusion would be that for this cube, a raft has a mass of 4.7 grams.
 
-Note (1): The case of Infill set ot No Bot/Top, is probably special: there is no bottom in the cube, so the raft can be simpler.
+Note (1): The case of Infill set to No Bot/Top, is probably special: there is no bottom in the cube, so the raft can be simpler.
 
 Note (2): I can not explain this outlier of 5.6 grams.
 
@@ -120,12 +120,12 @@ Next at No Raft:
 
 ![No Raft, Actual](noraft.jpg)
 
-|   Case    | Forecast |  Actual  | Error |
-|:---------:|:--------:|:--------:|:-----:|
-| With Raft |   34.2   |   38.20  |   12% |
-|  No Raft  |   29.5   |   34.47  |   17% |
+|   Case    | Forecast (g) |  Actual (g)  | Error |
+|:---------:|:------------:|:------------:|:-----:|
+| With Raft |     34.2     |     38.20    |   12% |
+|  No Raft  |     29.5     |     34.47    |   17% |
 
-This sample is small (two cases) but they show an understimation by UP Studio: 
+This sample is small (two cases) but they show a mass understimation by UP Studio: 
 the actual usage is 12 to 17% higher. That is a fairly big error.
 
 
@@ -149,7 +149,7 @@ The "ratio" colums show the increase in time when changing the Quality.
 
 The same table, but now Without Raft
 
-| Infill |  Fast | Ratio  | Normal | Ratio |  Fine  |
+| Infill |  Fast | Ratio  | Normal | Ratio  |  Fine  |
 |:------:|:-----:|:------:|:------:|:------:|:------:|
 |   13%  |  1.80 |  1.33  |  2.40  |  1.29  |  3.10  |
 |   65%  |  2.70 |  1.30  |  3.50  |  1.26  |  4.40  |
@@ -186,3 +186,8 @@ If we pairwise compare the masses With and Without Raft, we get this table.
 | 99%       |  fine   | 10.30  | 10.50  |  1.02  |
 
 As we can see (excluding the No Bottom/Top Infill), printing Without Raft is 2 to 20% slower!
+
+
+# Log the actual printing process
+
+Logs are there, but this text TBD
