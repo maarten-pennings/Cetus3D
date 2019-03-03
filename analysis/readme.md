@@ -22,47 +22,49 @@ These are my findings.
 
 First, I varied in Infill and Quality (printing With Raft)
 
-|  Layer  | Infill  | Quality | Unsolid | No Raft |  Time   | Mass (g)|
-|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-|   0.2   |no bottop|  fast   |   [v]   |   [ ]   | 40.0min |    8.9  |
-|   0.2   |   no    |  fast   |   [v]   |   [ ]   |   1.0h  |   20.2  |
-|   0.2   |   13%   |  fast   |   [v]   |   [ ]   |   1.7h  |   34.3  |
-|   0.2   |   65%   |  fast   |   [v]   |   [ ]   |   2.5h  |   56.9  |
-|   0.2   |   99%   |  fast   |   [v]   |   [ ]   |   6.4h  |  158.5  |
-|         |         |         |         |         |         |         |
-|   0.2   |no bottop| normal  |   [v]   |   [ ]   | 50.9min |    8.8  |
-|   0.2   |   no    | normal  |   [v]   |   [ ]   |   1.4h  |   20.1  |
-|   0.2   |   13%   | normal  |   [v]   |   [ ]   |   2.2h  |   34.2  |
-|   0.2   |   65%   | normal  |   [v]   |   [ ]   |   3.3h  |   56.8  |
-|   0.2   |   99%   | normal  |   [v]   |   [ ]   |   8.2h  |  158.4  |
-|         |         |         |         |         |         |         |
-|   0.2   |no bottop|  fine   |   [v]   |   [ ]   |   1.2h  |    8.8  |
-|   0.2   |   no    |  fine   |   [v]   |   [ ]   |   1.9h  |   20.1  |
-|   0.2   |   13%   |  fine   |   [v]   |   [ ]   |   2.8h  |   34.2  |
-|   0.2   |   65%   |  fine   |   [v]   |   [ ]   |   4.2h  |   56.9  |
-|   0.2   |   99%   |  fine   |   [v]   |   [ ]   |  10.3h  |  158.5  |
+|  Layer  | Infill  | Quality | Unsolid | No Raft |  Time   | Mass (g)|    |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:---:
+|   0.2   |no bottop|  fast   |   [v]   |   [ ]   | 40.0min |    8.9  |    |
+|   0.2   |   no    |  fast   |   [v]   |   [ ]   |   1.0h  |   20.2  |    |
+|   0.2   |   13%   |  fast   |   [v]   |   [ ]   |   1.7h  |   34.3  |    |
+|   0.2   |   65%   |  fast   |   [v]   |   [ ]   |   2.5h  |   56.9  |    |
+|   0.2   |   99%   |  fast   |   [v]   |   [ ]   |   6.4h  |  158.5  |    |
+|         |         |         |         |         |         |         |    |
+|   0.2   |no bottop| normal  |   [v]   |   [ ]   | 50.9min |    8.8  |    |
+|   0.2   |   no    | normal  |   [v]   |   [ ]   |   1.4h  |   20.1  |    |
+|   0.2   |   13%   | normal  |   [v]   |   [ ]   |   2.2h  |   34.2  |    |
+|   0.2   |   65%   | normal  |   [v]   |   [ ]   |   3.3h  |   56.8  |    |
+|   0.2   |   99%   | normal  |   [v]   |   [ ]   |   8.2h  |  158.4  |    |
+|         |         |         |         |         |         |         |    |
+|   0.2   |no bottop|  fine   |   [v]   |   [ ]   |   1.2h  |    8.8  |    |
+|   0.2   |   no    |  fine   |   [v]   |   [ ]   |   1.9h  |   20.1  |    |
+|   0.2   |   13%   |  fine   |   [v]   |   [ ]   |   2.8h  |   34.2  |  * |
+|   0.2   |   65%   |  fine   |   [v]   |   [ ]   |   4.2h  |   56.9  |    |
+|   0.2   |   99%   |  fine   |   [v]   |   [ ]   |  10.3h  |  158.5  |    |
 
 Next, same, but now without raft
 
-|  Layer  | Infill  | Quality | Unsolid | No Raft |  Time   | Mass (g)|
-|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-|   0.2   |no bottop|  fast   |   [v]   |   [v]   | 20.8min |    6.3  |
-|   0.2   |   no    |  fast   |   [v]   |   [v]   |   1.2h  |   15.4  |
-|   0.2   |   13%   |  fast   |   [v]   |   [v]   |   1.8h  |   29.4  |
-|   0.2   |   65%   |  fast   |   [v]   |   [v]   |   2.7h  |   52.1  |
-|   0.2   |   99%   |  fast   |   [v]   |   [v]   |   6.5h  |  153.7  |
-|         |         |         |         |         |         |         |
-|   0.2   |no bottop| normal  |   [v]   |   [v]   | 26.8min |    6.3  |
-|   0.2   |   no    | normal  |   [v]   |   [v]   |   1.6h  |   15.5  |
-|   0.2   |   13%   | normal  |   [v]   |   [v]   |   2.4h  |   29.5  |
-|   0.2   |   65%   | normal  |   [v]   |   [v]   |   3.5h  |   52.1  |
-|   0.2   |   99%   | normal  |   [v]   |   [v]   |   8.4h  |  153.7  |
-|         |         |         |         |         |         |         |
-|   0.2   |no bottop|  fine   |   [v]   |   [v]   | 42.2min |    6.3  |
-|   0.2   |   no    |  fine   |   [v]   |   [v]   |   2.2h  |   15.4  |
-|   0.2   |   13%   |  fine   |   [v]   |   [v]   |   3.1h  |   29.5  |
-|   0.2   |   65%   |  fine   |   [v]   |   [v]   |   4.4h  |   52.2  |
-|   0.2   |   99%   |  fine   |   [v]   |   [v]   |  10.5h  |  153.8  |
+|  Layer  | Infill  | Quality | Unsolid | No Raft |  Time   | Mass (g)|    |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:---|
+|   0.2   |no bottop|  fast   |   [v]   |   [v]   | 20.8min |    6.3  |    |
+|   0.2   |   no    |  fast   |   [v]   |   [v]   |   1.2h  |   15.4  |    |
+|   0.2   |   13%   |  fast   |   [v]   |   [v]   |   1.8h  |   29.4  |    |
+|   0.2   |   65%   |  fast   |   [v]   |   [v]   |   2.7h  |   52.1  |    |
+|   0.2   |   99%   |  fast   |   [v]   |   [v]   |   6.5h  |  153.7  |    |
+|         |         |         |         |         |         |         |    |
+|   0.2   |no bottop| normal  |   [v]   |   [v]   | 26.8min |    6.3  |    |
+|   0.2   |   no    | normal  |   [v]   |   [v]   |   1.6h  |   15.5  |    |
+|   0.2   |   13%   | normal  |   [v]   |   [v]   |   2.4h  |   29.5  |    |
+|   0.2   |   65%   | normal  |   [v]   |   [v]   |   3.5h  |   52.1  |    |
+|   0.2   |   99%   | normal  |   [v]   |   [v]   |   8.4h  |  153.7  |    |
+|         |         |         |         |         |         |         |    |
+|   0.2   |no bottop|  fine   |   [v]   |   [v]   | 42.2min |    6.3  |    |
+|   0.2   |   no    |  fine   |   [v]   |   [v]   |   2.2h  |   15.4  |    |
+|   0.2   |   13%   |  fine   |   [v]   |   [v]   |   3.1h  |   29.5  |  * |
+|   0.2   |   65%   |  fine   |   [v]   |   [v]   |   4.4h  |   52.2  |    |
+|   0.2   |   99%   |  fine   |   [v]   |   [v]   |  10.5h  |  153.8  |    |
+
+Note: the cases with * are actually printed.
 
 
 # Looking at Mass
@@ -95,7 +97,7 @@ If we pairwise compare the masses With and Without Raft, we get this table.
 |         |         |         |         |         |      |
 |no bottop|  fine   |    8.8  |    6.3  |   2.5   |  (1) |
 |   no    |  fine   |   20.1  |   15.4  |   4.7   |      |
-|   13%   |  fine   |   34.2  |   29.5  |   4.7   |  (3) |
+|   13%   |  fine   |   34.2  |   29.5  |   4.7   |   *  |
 |   65%   |  fine   |   56.9  |   52.2  |   4.7   |      |
 |   99%   |  fine   |  158.5  |  153.8  |   4.7   |      |
 
@@ -105,7 +107,7 @@ Note (1): The case of Infill set to No Bot/Top, is probably special: there is no
 
 Note (2): I can not explain this outlier of 5.6 grams.
 
-Note (3): These two I actually printed, see below.
+Note *  : The cases that were  printed.
 
 
 ## Actual
@@ -181,13 +183,13 @@ If we pairwise compare the masses With and Without Raft, we get this table.
 |           |         |        |        |        |      | 
 | no bottop |  fine   |  1.20  |  0.70  |  0.59  |      |
 |    no     |  fine   |  1.90  |  2.20  |  1.16  |      |
-| 13%       |  fine   |  2.80  |  3.10  |  1.11  |  (3) |
+| 13%       |  fine   |  2.80  |  3.10  |  1.11  |   *  |
 | 65%       |  fine   |  4.20  |  4.40  |  1.05  |      |
 | 99%       |  fine   | 10.30  | 10.50  |  1.02  |      |
 
 As we can see (excluding the No Bottom/Top Infill), printing Without Raft is 2 to 20% slower!
 But is this true?
-The two prints in row labeled (3) were actually logged, see the next section.
+The two prints in row labeled * were actually logged, see the next section.
 
 
 ## Log of the actual printing process
