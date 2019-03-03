@@ -123,10 +123,10 @@ Next at No Raft:
 |   Case    | Forecast (g) |  Actual (g)  | Error |
 |:---------:|:------------:|:------------:|:-----:|
 | With Raft |     34.2     |     38.20    |   12% |
-|  No Raft  |     29.5     |     34.47    |   17% |
+|  No Raft  |     29.5     |     33.47    |   13% |
 
 This sample is small (two cases) but they show a mass underestimation by UP Studio: 
-the actual PLA usage is 12 to 17% higher. That is a fairly big error.
+the actual PLA usage is 12% higher. That is a fairly big error.
 
 
 # Looking at Time
@@ -248,7 +248,7 @@ The print time No Raft is over estimated 20.2%.
 
 The conclusion for PLA usage are 
  - the extra amount of PLA for the raft is consistently reported
- - actual PLA usage is 15% higher than the forecast amount
+ - actual PLA usage is 12% higher than the forecast amount
  
 The conclusions for print time are
  - print time roughly increases with 30% when moving from Fast to Normal, or from Normal to Fine
