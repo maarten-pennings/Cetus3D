@@ -230,10 +230,10 @@ If we look at the actual runtime for With Raft, we see that it ran from 20:48:40
 Likewise, the actual runtime for No Raft from 19:29:50 to 22:05:16, this is a total of 2:35:26 or 2.58 hour.
 
 
-| Print time (h) | UP Studio | Cetus3D |  Actual | UP/Actual |
-|:--------------:|:---------:|:-------:|:--------:-----------:
-| With Raft      |    2.80   |   2.81  |  2.63   |   1.065   |
-| No Raft        |    3.10   |   3.08  |  2.58   |   1.202   |
+| Case      | UP Studio (h) | Cetus3D (h) |  Actual (h) | UP/Actual |
+|:---------:|:-------------:|:-----------:|:-----------:|:---------:|
+| With Raft |        2.80   |       2.81  |      2.63   |   1.065   |
+| No Raft   |        3.10   |       3.08  |      2.58   |   1.202   |
 
 So, the reports from Cetus3D are close to the forecast of UP Studio; that is good.
 
