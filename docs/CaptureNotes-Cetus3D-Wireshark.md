@@ -1,35 +1,40 @@
-Notes on Capturing Cetus3D communication using WireShark
-========================================================
+# Capturing Cetus3D with Wireshark
+Notes on Capturing Cetus3D communication using Wireshark
 
+## Introduction
 
-Introduction
-------------
-I'm UP Studio and WireShark on a PC.
-I use UP to give commands or get status, and I capture the nextwork traffic using WireShark.
+I'm using UP Studio and Wireshark on one and the same PC.
+I use UP to give commands or get status, and I capture the network traffic using Wireshark.
 
-Filter in Wireshark
+A typical filter in Wireshark
+
+```
   ip.src == 192.168.178.10 || ip.dst == 192.168.178.10 || (ip.src == 192.168.178.64 && ip.dst == 192.168.178.255)
+```
 
 
-
-PHASE 1: DISCOVERY
-==================
+## Phase 1: discovery
 During the discovery phase two message types are used.
-First message is a WhoIsPresent; it is broadcast by a host to all Cetus3Ds in the network.
-The response is a "ImPresent" message from each Cetus3D back to the host.
+
+- First message is a _WhoIsPresent_; it is broadcast by a host to all Cetus3Ds in the network.
+- The response is a _ImPresent_ message from each Cetus3D back to the host.
+
 The host is typically a PC or iPad running the Cetus3D software.
 
 
-"WhoIsPresent" (27 bytes) UDP host->printer
--------------------------------------------
+### _WhoIsPresent_ (27 bytes) UDP host->printer
 The first message is a message from the host to the Cetus3D printer.
 Actually, this is an UDP broadcast to all Cetus3D printers on the network.
-I named this message the "WhoIsPresent" message.
-This message contains several fields, two of them are "known":
-  - at offset 13 there are 4 bytes for the IP address of the host (actually the receiver for the "ImPresent").
-  - at offset 25 there are 2 bytes for the port of the host (for the "ImPresent").
-My printer is on 192.168.178.10 or c0.a8.b2.0a, my PC on 192.168.178.64 or c0.a8.b2.40
+I named this message the _WhoIsPresent_ message.
+This message contains several fields, two of them are "known" by me:
 
+  - at offset 13 there are 4 bytes for the IP address of the host (actually the destination for the _ImPresent_).
+  - at offset 25 there are 2 bytes for the port of the host (destination port for the _ImPresent_).
+
+My PC is on IP 192.168.178.64 (decimal) or c0.a8.b2.40 (hex). 
+By the way, my Cetus3D printer is on 192.168.178.10 or c0.a8.b2.0a.
+
+```
 ====================== ???? senderip ==== ???? ======== senderport 
 f0f0000110120000000200 c54f c4000000 2f78 a662 f67f0000 effe
 f0f0000110120000000200 c550 c4000000 2f78 a662 f67f0000 f000
@@ -40,16 +45,18 @@ f0f0000110120000000200 c4ad c0a8b240 2f78 fe5f f67f0000 fba8
 f0f0000110120000000200 c59e c0a8b240 2f78 fe5f f67f0000 f3f7
 f0f0000110120000000200 c5d6 c0a8b240 2f78 fe5f f67f0000 fbdf
 f0f0000110120000000200 c5f8 c0a8b240 2f78 fe5f f67f0000 db92
+```
 
+### _ImPresent_ (137 bytes) UDP printer->host
 
-"ImPresent" (137 bytes) UDP printer->host
------------------------------------------
-Each printer responds to the "WhoIsPresent" with an "ImPresent" message.
+Each printer responds to the _WhoIsPresent_ with an _ImPresent_ message.
 This is also a UDP message. The printer sends this to the host port specified in the previous message.
+
  - at offset 9 there are 4 bytes for the serial number of the printer.
  - at offset 73 there is a 32 byte string of UTF-16 (?) characters, giving the name of the printer (zero padded).
  - at offset 105 there is a 32 byte string of UTF-16 (?) characters, giving the printer type name.
 
+```
                    serialnm                                                                                                                          M---y---C---e---t---u---s---3---D---<00>                         C-e-t-u-s- -S-7-(-N-L-)-
 f0f000014080000000 a233d15f 000000007f27000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 4d00790043006500740075007300330044000000000000000000000000000000 4365747573205337284e4c290000000000000000000000000000000000000000
 f0f000014080000000 a233d15f 000000007f27000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 4d00790043006500740075007300330044000000000000000000000000000000 4365747573205337284e4c290000000000000000000000000000000000000000
@@ -59,37 +66,43 @@ f0f000014080000000 a233d15f 000000007f270000000000000000000000000000000000000000
 f0f000014080000000 a233d15f 000000007f27000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 580059005a000000000000000000000000000000000000000000000000000000 4365747573205337284e4c290000000000000000000000000000000000000000
                    serialnm                                                                                                                          A---1---B---2---C---3---D---4---E---5---F---6---G---7---H---<00> C-e-t-u-s- -S-7-(-N-L-)- 
 f0f000014080000000 a233d15f 000000007f27000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 4100310042003200430033004400340045003500460036004700370048000000 4365747573205337284e4c290000000000000000000000000000000000000000
+```
 
+With the answer, the host knows how many printers there are, and for each printer it knows the IP number, serial number, name and type.
 
-CONTROL
-=======
+## Phase 2: Control
+
 Once the host has discovered a printer, it can take control of that printer.
-The host starts a (TCP) control server, and sends a CallMeHere UDP message to the printer, asking it to establish a connection to this server.
-Note that there can be only one control connection per server.
-The host can send several kinds of messages over the TCP connection.
-I have identified one that I named GiveInfo; it is a message from the host the printer asking for status.
-The printer responds by sending a CurrentStatus
+The host starts a (TCP) control server, and sends a _CallMeHere_ UDP message to the printer, asking it to establish a connection to this server.
+Note that there can be only one control server (one outgoing connection) per printer.
+The (control server on the) host can send several kinds of messages over the TCP connection, and the printer can send messages back.
+I have identified one that I named _GiveStatus_; it is a message from the host the printer asking for status.
+The printer responds by sending a _CurrentStatus_.
 
 
-"CallMeHere" (85 bytes) UDP host->printer
------------------------------------------
+### _CallMeHere_ (85 bytes) UDP host->printer
+
 The host selects the printer it wants to use.
-Then it sends it the "CallMeHere" UDP message. 
+Then it sends it the _CallMeHere_ UDP message. 
+
  - at offset 11 there are 2 bytes giving the port of the host where it has the listening control server.
  - at offset 13 there are 4 bytes giving the ip number of the host
  - at offset 39 there seems to be the host name - do not know yet if this is relevant
+
 The Cetus3D then establishes a TCP connection to the host (to the ip and port in the CallMeHere message).
 
+```
                        port hostip                                                        M-<>
 f0f00002104c0000000200 c284 c0a8b240 2f78e73df67f0000f3cb6e25e878a60000000000b77b60020000 4d000000600200000200000000000000969daa44fd7f00003b90215b3333000000000000000000000000
                                                                                           M-y-P-C-<> 
 f0f00002104c0000000200 c290 c0a8b240 2f788d80f77f0000c91e6e25e8786c0000000000ff7b3b020000 4d795043000200000200000000000000d29eb51bf97f000054b3fe39acb0000000000000000000000000
                                                                                           M-a-a-r-t-e-n-L-a-p-t-o-p-<>
 f0f00002104c0000000200 c5d7 c0a8b240 2f7847bef77f0000d1016e25e8780800000000009eda4c010000 4d61617274656e4c6170746f70000000969d5fcdfd7f0000e32003a8930f000000000000000000000000
+```
 
+### _GiveStatus_ (73 bytes) TCP host->printer
 
-"GiveStatus" (73 bytes) TCP host->printer
------------------------------------------
+```
 >> f0f0000e20400000007201ac797e02000060f2dfe2b200000000000000000000000000000000000000e8f5dfe2b2000000000000000000000043003a005c0055007300650072007300
 << 03000000000000000000ad04ad306203131700000000380000000000000000000000000000000000440100bf1e00000000000000000000ffffffffffffffff06
 
@@ -104,10 +117,12 @@ f0f00002104c0000000200 c5d7 c0a8b240 2f7847bef77f0000d1016e25e8780800000000009ed
 
 >> f0f0000e20400000007201dfe2b2000000242001000000000030f3dfe2b2000000200000000000000030f3dfe2b200000020000000b20000000000000001000000f0aec51c01000000
 << 03000000000000000000ad04ad306203131700000000380000000000000000000000000000000000440100bf1e00000000000000000000ffffffffffffffff06
+```
 
 
-CurrentStatus (64 bytes) TCP printer->host
-------------------------------------------
+### _CurrentStatus_ (64 bytes) TCP printer->host
+
+```
                                                                                                                0 0  0 0  0 0  0  0 0  0  1 1  1 1  1 1  1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6
                                                                                                                0 1  2 3  4 5  6  7 8  9  0 1  2 3  4 5  6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 
                                                                                                                stat laye 1/10 pr time ?? noz  ???? bed
@@ -188,6 +203,6 @@ Ready 58.06C 17.32C
 ready (lamps  on)                                                                                                                                       
                                                                                                                0301 0000 0000 00 0000 00 ce04 442f 6203 1117000000002800000cc30000f041000000000000000081440100bf1e00000000000000000000ffffffffffffffff06
                                                                                                                0301 0000 0000 00 0000 00 4705 442f 6203 1117000000003800000cc30000f041000000000000000081440100bf1e00000000000000000000ffffffffffffffff06
-  
+```  
   
 (end)
